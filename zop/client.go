@@ -1,6 +1,7 @@
 package zop
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -57,7 +58,7 @@ func NewClient(companyID, key string, opt ...Options) (*Client, error) {
 }
 
 // Execute executes the given request.
-func (c *Client) Execute(req *Request) (string, error) {
+func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 	if req.URL == "" {
 		return "", errors.New("missing request url")
 	}
@@ -75,6 +76,7 @@ func (c *Client) Execute(req *Request) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	httpReq.WithContext(ctx)
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("Content-Type", "charset=utf-8")
 	httpReq.Header.Add("x-companyid", c.props.companyID)
