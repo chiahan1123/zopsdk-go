@@ -18,7 +18,7 @@ if err != nil {
 }
 params := make(map[string]string)
 params["request"] = `[{"partnerCode":"360844819234","companyCode":"GP1551922487","reason":"客户取消"}]`
-resp, err := client.Execute(&zop.Request{
+resp, err := client.Execute(context.Background(), &zop.Request{
     URL:    "http://58.40.16.122:8080/cancelOrder",
     Params: params,
 })
