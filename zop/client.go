@@ -78,7 +78,6 @@ func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 	}
 	httpReq.WithContext(ctx)
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	httpReq.Header.Add("Content-Type", "charset=utf-8")
 	httpReq.Header.Add("x-companyid", c.props.companyID)
 	httpReq.Header.Add("x-datadigest", digest(digestBody+c.props.key))
 
