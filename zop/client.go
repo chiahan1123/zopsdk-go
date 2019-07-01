@@ -72,7 +72,7 @@ func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 		return "", err
 	}
 
-	httpReq, err := http.NewRequest(http.MethodPost, req.URL, strings.NewReader(q.Encode()))
+	httpReq, err := http.NewRequest(http.MethodPost, req.URL, strings.NewReader(body))
 	if err != nil {
 		return "", err
 	}
