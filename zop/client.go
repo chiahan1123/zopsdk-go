@@ -79,7 +79,7 @@ func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 	httpReq.WithContext(ctx)
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("x-companyid", c.props.companyID)
-	httpReq.Header.Add("x-datadigest", digest(digestBody+c.props.key))
+	httpReq.Header.Add("x-datadigest", Digest(digestBody+c.props.key))
 
 	resp, err := c.opts.httpClient.Do(httpReq)
 	if err != nil {
