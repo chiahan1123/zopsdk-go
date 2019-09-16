@@ -76,12 +76,11 @@ func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	httpReq.WithContext(ctx)
 	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	httpReq.Header.Add("x-companyid", c.props.companyID)
 	httpReq.Header.Add("x-datadigest", Digest(digestBody+c.props.key))
 
-	resp, err := c.opts.httpClient.Do(httpReq)
+	resp, err := c.opts.httpClient.Do(httpReq.WithContext(ctx))
 	if err != nil {
 		return "", err
 	}
