@@ -10,6 +10,8 @@
 go get -u github.com/chiahan1123/zopsdk-go
 ```
 
+### Form
+
 ```
 client, err := zop.NewClient("kfpttestCode", "kfpttestkey==")
 if err != nil {
@@ -21,6 +23,25 @@ params["request"] = `[{"partnerCode":"360844819234","companyCode":"GP1551922487"
 resp, err := client.Execute(context.Background(), &zop.Request{
     URL:    "https://japi-test.zto.com/cancelOrder",
     Params: params,
+})
+if err != nil {
+	// handle error
+	return
+}
+fmt.Println(resp)
+```
+
+### JSON
+
+```
+client, err := zop.NewClient("kfpttestCode", "kfpttestkey==")
+if err != nil {
+	// handle error
+	return
+}
+resp, err := client.Execute(context.Background(), &zop.Request{
+    URL:  "https://japi-test.zto.com/cancelOrder",
+    Body: `{"request":[{"partnerCode":"360844819234","companyCode":"GP1551922487","reason":"客户取消"}]}`,
 })
 if err != nil {
 	// handle error
