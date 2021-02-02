@@ -62,11 +62,7 @@ func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 	if req.URL == "" {
 		return "", errors.New("missing request url")
 	}
-	q := make(url.Values, len(req.Params))
-	for k, v := range req.Params {
-		q.Set(k, v)
-	}
-	body := q.Encode()
+	body, contentType := req.body()
 	digestBody, err := url.QueryUnescape(body)
 	if err != nil {
 		return "", err
@@ -76,7 +72,7 @@ func (c *Client) Execute(ctx context.Context, req *Request) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	httpReq.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	httpReq.Header.Add("Content-Type", contentType)
 	httpReq.Header.Add("x-companyid", c.props.companyID)
 	httpReq.Header.Add("x-datadigest", Digest(digestBody+c.props.key))
 
